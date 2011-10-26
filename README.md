@@ -22,6 +22,7 @@ public function rules()
 ```
 
 An user must fill at least phone or valid email.
+
 ```php
 <?php
 public function rules()
