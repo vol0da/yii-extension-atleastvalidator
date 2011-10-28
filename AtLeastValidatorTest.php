@@ -93,6 +93,33 @@ class AtLeastValidatorTest extends CTestCase
         $this->assertFalse($model->hasErrors('phone'));
     }
 
+    public function testDefaultMessage()
+    {
+        $model = $this->getModelMock(array(
+            'rules' => array(
+                array('email, im, phone', 'required'),
+                array('email, im, phone', 'ext.atLeastValidator.atLeastValidator'),
+            ),
+        ));
+
+        $model->validate();
+        $this->assertTrue(in_array('Fill at least one of the following attributes: email, im, phone', $model->getErrors("")));
+    }
+
+    public function testMessageChange()
+    {
+        $message = 'Please fill an email or a phone';
+        $model = $this->getModelMock(array(
+            'rules' => array(
+                array('email, phone', 'required'),
+                array('email, phone', 'ext.atLeastValidator.atLeastValidator', 'message' => $message),
+            ),
+        ));
+
+        $model->validate();
+        $this->assertTrue(in_array($message, $model->getErrors("")));
+    }
+
     /**
      * Mocks up an object to test with
      *

@@ -2,6 +2,10 @@
 
 class AtLeastValidator extends CValidator
 {
+
+    /** @var string */
+    protected $defaultMessage = 'Fill at least one of the following attributes: {attributes}';
+
     /**
      * @param CModel $object
      * @param array $attributes
@@ -41,7 +45,8 @@ class AtLeastValidator extends CValidator
             }
         }
         else {
-            $sender->addError(null, 'Fill at least one of the following attributes: ' . implode(', ', $this->attributes));
+            $message = empty($this->message) ? Yii::t('application', $this->defaultMessage) : $this->message;
+            $this->addError($sender, null,  $message, array('{attributes}' => implode(', ', $this->attributes)));
         }
     }
 }
