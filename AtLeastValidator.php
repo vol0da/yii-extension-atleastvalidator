@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * AtLeastValidator
+ *
+ * @author   Vladimir Galajda <galajda@gmail.com>
+ **/
 class AtLeastValidator extends CValidator
 {
     /**
